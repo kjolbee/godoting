@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=3 uid="uid://dxpi7k1uto48u"]
+
+[ext_resource type="Script" path="res://game.gd" id="1_122qw"]
+[ext_resource type="PackedScene" uid="uid://cct8ihy6pp5io" path="res://player.tscn" id="1_sik13"]
+[ext_resource type="PackedScene" uid="uid://dvr1abvr337pv" path="res://ezegyfa.tscn" id="2_ok6kw"]
+[ext_resource type="PackedScene" uid="uid://lk86hp63xp48" path="res://mob.tscn" id="4_2ic6u"]
+[ext_resource type="Script" path="res://path_follow_2d.gd" id="5_cqp3n"]
+
+[sub_resource type="Curve2D" id="Curve2D_6aeaf"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -60, -71, 0, 0, 0, 0, 1222, -67, 0, 0, 0, 0, 1225, 709, 0, 0, 0, 0, -68, 701, 0, 0, 0, 0, -60, -71)
+}
+point_count = 5
+
+[node name="Game" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_122qw")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_right = 1152.0
+offset_bottom = 651.0
+
+[node name="Player" parent="." instance=ExtResource("1_sik13")]
+unique_name_in_owner = true
+position = Vector2(618, 401)
+scale = Vector2(0.67, 0.67)
+
+[node name="mob2" parent="." instance=ExtResource("4_2ic6u")]
+position = Vector2(247, 215)
+
+[node name="mob" parent="." instance=ExtResource("4_2ic6u")]
+
+[node name="StaticBody2D" parent="." instance=ExtResource("2_ok6kw")]
+position = Vector2(535, 238)
+scale = Vector2(7.155, 7.155)
+
+[node name="StaticBody2D2" parent="." instance=ExtResource("2_ok6kw")]
+position = Vector2(946, 219)
+scale = Vector2(7.155, 7.155)
+
+[node name="StaticBody2D3" parent="." instance=ExtResource("2_ok6kw")]
+position = Vector2(261, 488)
+scale = Vector2(7.155, 7.155)
+
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(17.0534, 0)
+scale = Vector2(0.986079, 1)
+curve = SubResource("Curve2D_6aeaf")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+unique_name_in_owner = true
+position = Vector2(-60, -71)
+rotation = 0.00312011
+script = ExtResource("5_cqp3n")

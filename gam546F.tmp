@@ -1,0 +1,80 @@
+[gd_scene load_steps=7 format=3 uid="uid://dxpi7k1uto48u"]
+
+[ext_resource type="Script" path="res://mob.gd" id="1_idnw3"]
+[ext_resource type="PackedScene" uid="uid://cct8ihy6pp5io" path="res://player.tscn" id="1_sik13"]
+[ext_resource type="PackedScene" uid="uid://dvr1abvr337pv" path="res://ezegyfa.tscn" id="2_ok6kw"]
+[ext_resource type="PackedScene" uid="uid://lk86hp63xp48" path="res://mob.tscn" id="4_2ic6u"]
+
+[sub_resource type="GDScript" id="GDScript_i11da"]
+script/source = "extend Node2D
+
+func _ready():
+	spawn_mob()
+	spawn_mob()
+	spawn_mob()
+	spawn_mob()
+	spawn_mob()
+
+func spawn_mob():
+	var new_mob = preload(\"res://mob.tscn\").instantiate()
+	%PathFollow2D.progress_ratio = randf()
+	new_mob.global_position = %PathFollow2D.global_position
+	add_child(new_mob)
+"
+
+[sub_resource type="Curve2D" id="Curve2D_6aeaf"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -60, -71, 0, 0, 0, 0, 1222, -67, 0, 0, 0, 0, 1225, 709, 0, 0, 0, 0, -68, 701, 0, 0, 0, 0, -60, -71)
+}
+point_count = 5
+
+[node name="Game" type="Node2D"]
+y_sort_enabled = true
+script = SubResource("GDScript_i11da")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_right = 1152.0
+offset_bottom = 651.0
+
+[node name="Player" parent="." instance=ExtResource("1_sik13")]
+position = Vector2(618, 401)
+scale = Vector2(0.67, 0.67)
+
+[node name="mob" parent="." instance=ExtResource("4_2ic6u")]
+position = Vector2(168, 199)
+script = ExtResource("1_idnw3")
+
+[node name="mob2" parent="." instance=ExtResource("4_2ic6u")]
+position = Vector2(1065, 608)
+script = ExtResource("1_idnw3")
+
+[node name="mob3" parent="." instance=ExtResource("4_2ic6u")]
+position = Vector2(126, 616)
+script = ExtResource("1_idnw3")
+
+[node name="mob4" parent="." instance=ExtResource("4_2ic6u")]
+position = Vector2(1079, 180)
+script = ExtResource("1_idnw3")
+
+[node name="StaticBody2D" parent="." instance=ExtResource("2_ok6kw")]
+position = Vector2(535, 238)
+scale = Vector2(7.155, 7.155)
+
+[node name="StaticBody2D2" parent="." instance=ExtResource("2_ok6kw")]
+position = Vector2(946, 219)
+scale = Vector2(7.155, 7.155)
+
+[node name="StaticBody2D3" parent="." instance=ExtResource("2_ok6kw")]
+position = Vector2(261, 488)
+scale = Vector2(7.155, 7.155)
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_6aeaf")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+unique_name_in_owner = true
+position = Vector2(-60, -71)
+rotation = 0.00312011

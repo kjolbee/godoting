@@ -1,0 +1,99 @@
+[gd_scene load_steps=6 format=3 uid="uid://dxpi7k1uto48u"]
+
+[ext_resource type="Script" path="res://game.gd" id="1_122qw"]
+[ext_resource type="PackedScene" uid="uid://cct8ihy6pp5io" path="res://player.tscn" id="1_sik13"]
+[ext_resource type="PackedScene" uid="uid://dvr1abvr337pv" path="res://ezegyfa.tscn" id="2_ok6kw"]
+[ext_resource type="PackedScene" uid="uid://lk86hp63xp48" path="res://mob.tscn" id="4_2ic6u"]
+[ext_resource type="Script" path="res://game_over.gd" id="5_p7eo2"]
+
+[node name="Game" type="Node2D"]
+process_mode = 1
+y_sort_enabled = true
+script = ExtResource("1_122qw")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_right = 1152.0
+offset_bottom = 651.0
+
+[node name="Player" parent="." instance=ExtResource("1_sik13")]
+unique_name_in_owner = true
+position = Vector2(618, 401)
+scale = Vector2(0.67, 0.67)
+
+[node name="mob2" parent="." instance=ExtResource("4_2ic6u")]
+position = Vector2(247, 215)
+
+[node name="mob" parent="." instance=ExtResource("4_2ic6u")]
+
+[node name="StaticBody2D" parent="." instance=ExtResource("2_ok6kw")]
+position = Vector2(535, 238)
+scale = Vector2(7.155, 7.155)
+
+[node name="StaticBody2D2" parent="." instance=ExtResource("2_ok6kw")]
+position = Vector2(946, 219)
+scale = Vector2(7.155, 7.155)
+
+[node name="StaticBody2D3" parent="." instance=ExtResource("2_ok6kw")]
+position = Vector2(261, 488)
+scale = Vector2(7.155, 7.155)
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+script = ExtResource("5_p7eo2")
+
+[node name="ColorRect" type="ColorRect" parent="GameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.65098)
+
+[node name="Label" type="Label" parent="GameOver/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.5
+offset_top = -11.5
+offset_right = 20.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 125
+text = "Dead"
+
+[node name="Counter" type="CanvasLayer" parent="."]
+
+[node name="Kills" type="Label" parent="Counter"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Kills"
+horizontal_alignment = 1
+
+[node name="Number" type="Label" parent="Counter"]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_top = 17.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+horizontal_alignment = 1
+
+[connection signal="health_zero" from="Player" to="." method="_on_player_health_zero"]
