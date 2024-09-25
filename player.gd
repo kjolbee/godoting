@@ -22,12 +22,14 @@ func _physics_process(delta: float) -> void:
 		health -= DAMAGE * delta
 		print(health)
 		$"%ProgressBar".value = health
+		if health <= 0:
+			print("dead")
+			health_zero.emit()
 		
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("shoot"):
 		speed += 50
 		print("speed increased")
-		if health <= 0:
-			health_zero.emit()
+
 		
 		

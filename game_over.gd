@@ -23,3 +23,8 @@ func restart_game():
 	get_tree().paused = false  # Unpause the game
 	var current_scene = get_tree().current_scene  # Get the current scene
 	get_tree().reload_current_scene()  # Reload the current scene
+
+
+func _on_player_health_zero() -> void:
+	get_tree().paused = true
+	%GameOver.visible = true

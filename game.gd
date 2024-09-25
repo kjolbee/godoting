@@ -22,6 +22,10 @@ func spawn_mob():
 	add_child(new_mob)
 	new_mob.connect("mob_killed", Callable(self, "_on_mob_killed"))
 
+var counter = 0
+
 func _on_mob_killed():
-	print("A mob has been killed!")
+	counter += 1
+	print(counter)
+	%CounterLabel.text = str(counter)
 	# Itt adhatsz hozzá extra logikát, pl. pontok növelése, új mob spawnolása stb.

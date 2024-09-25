@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dxpi7k1uto48u"]
+[gd_scene load_steps=6 format=3 uid="uid://dxpi7k1uto48u"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_122qw"]
 [ext_resource type="PackedScene" uid="uid://cct8ihy6pp5io" path="res://player.tscn" id="1_sik13"]
 [ext_resource type="PackedScene" uid="uid://dvr1abvr337pv" path="res://ezegyfa.tscn" id="2_ok6kw"]
+[ext_resource type="Script" path="res://game_over.gd" id="4_lp72g"]
 
 [sub_resource type="Curve2D" id="Curve2D_6aeaf"]
 _data = {
@@ -23,7 +24,7 @@ offset_bottom = 651.0
 
 [node name="Player" parent="." instance=ExtResource("1_sik13")]
 unique_name_in_owner = true
-position = Vector2(618, 401)
+position = Vector2(617, 397)
 scale = Vector2(0.67, 0.67)
 
 [node name="StaticBody2D" parent="." instance=ExtResource("2_ok6kw")]
@@ -47,3 +48,59 @@ curve = SubResource("Curve2D_6aeaf")
 unique_name_in_owner = true
 position = Vector2(-60, -71)
 rotation = 0.00312011
+
+[node name="Jobb_felso" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="Jobb_felso"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Kills"
+horizontal_alignment = 1
+
+[node name="CounterLabel" type="Label" parent="Jobb_felso"]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -39.0
+offset_top = 17.0
+offset_right = 1.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0"
+horizontal_alignment = 1
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+script = ExtResource("4_lp72g")
+
+[node name="ColorRect" type="ColorRect" parent="GameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.862745)
+
+[node name="Label" type="Label" parent="GameOver/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.961518, 4.45209e-06, 9.62615e-07, 1)
+theme_override_font_sizes/font_size = 106
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="health_zero" from="Player" to="GameOver" method="_on_player_health_zero"]
