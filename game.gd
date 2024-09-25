@@ -18,9 +18,13 @@ func spawn_mob():
 	%PathFollow2D.progress_ratio = randf()
 	new_mob.global_position = %PathFollow2D.global_position
 	#print("adding mob at: ")
-	#print(%PathFollow2D.global_position)
-	add_child(new_mob)
+	print(%PathFollow2D.global_position)
+	
+	# Defer adding the mob as a child to avoid the flushing queries error
+	call_deferred("add_child", new_mob)
+	
 	new_mob.connect("mob_killed", Callable(self, "_on_mob_killed"))
+
 
 var counter = 0
 
